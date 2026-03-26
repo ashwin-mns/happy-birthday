@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Our Beautiful Moments{% endblock %}
+
+{% block content %}
+<div class="container" style="padding: 2rem;">
+    <h2 style="text-align: center; font-size: 3rem; color: #FFB7CE; margin-bottom: 2rem;">Our Beautiful Moments</h2>
+
+    <div class="gallery-grid">
+        {% for moment in moments %}
+        <div class="gallery-item" onclick="openModal('{{ url_for('static', filename='uploads/' + moment.filename) }}')">
+            <img src="{{ url_for('static', filename='uploads/' + moment.filename) }}" alt="Moment">
+            {% if moment.caption %}
+            <div style="padding: 0.5rem; text-align: center; font-size: 0.9rem;">{{ moment.caption }}</div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal" onclick="closeModal()">
+    <span
+        style="position: absolute; top: 15px; right: 35px; color: white; font-size: 40px; cursor: pointer;">&times;</span>
+    <img class="modal-content" id="img01">
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="container" style="padding: 2rem; max-width: 1000px; margin: 0 auto;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <h2>Admin Dashboard</h2>
+        <a href="/admin/logout" style="color: var(--pink-dark);">Logout</a>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+        <!-- Upload Moment -->
+        <div style="background: white; padding: 1.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+            <h3>Upload Photo</h3>
+            <form action="/admin/upload/moment" method="POST" enctype="multipart/form-data">
+                <input type="file" name="file" required style="margin: 1rem 0;">
+                <input type="text" name="caption" placeholder="Caption (optional)"
+                    style="width: 100%; padding: 0.5rem; margin-bottom: 1rem; border: 1px solid #ddd;">
+                <button type="submit"
+                    style="background: var(--pink-primary); color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer;">Upload</button>
+            </form>
+        </div>
+
+        <!-- Upload Video -->
+        <div style="background: white; padding: 1.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+            <h3>Upload Video</h3>
+            <form action="/admin/upload/video" method="POST" enctype="multipart/form-data">
+                <input type="file" name="file" required style="margin: 1rem 0;">
+                <input type="text" name="title" placeholder="Video Title"
+                    style="width: 100%; padding: 0.5rem; margin-bottom: 1rem; border: 1px solid #ddd;">
+                <button type="submit"
+                    style="background: var(--pink-primary); color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer;">Upload</button>
+            </form>
+        </div>
+
+        <!-- Add Memory -->
+        <div
+            style="background: white; padding: 1.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); grid-column: 1 / -1;">
+            <h3>Add Timeline Memory</h3>
+            <form action="/admin/add/memory" method="POST" enctype="multipart/form-data">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <input type="text" name="date" placeholder="Date (e.g. Jan 2024)" required
+                        style="padding: 0.5rem; border: 1px solid #ddd;">
+                    <input type="text" name="title" placeholder="Memory Title" required
+                        style="padding: 0.5rem; border: 1px solid #ddd;">
+                </div>
+                <textarea name="description" placeholder="Description" required
+                    style="width: 100%; padding: 0.5rem; margin: 1rem 0; border: 1px solid #ddd; height: 100px;"></textarea>
+                <input type="file" name="file" style="margin-bottom: 1rem;">
+                <button type="submit"
+                    style="display: block; width: 200px; background: var(--pink-primary); color: white; border: none; padding: 0.8rem; border-radius: 5px; cursor: pointer;">Add
+                    Memory</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
