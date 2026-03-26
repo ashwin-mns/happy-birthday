@@ -81,7 +81,7 @@
                 <text x="750" y="70" font-size="24" opacity="0.6">💕</text>
 
                 <!-- Background line (glow) -->
-                <path d="M 100 220 C 230 220, 230 100, 366 100 C 500 100, 500 240, 633 240 C 766 240, 766 120, 900 120"
+                <path id="journey-path" d="M 100 220 C 230 220, 230 100, 366 100 C 500 100, 500 240, 633 240 C 766 240, 766 120, 900 120"
                     fill="none" stroke="rgba(183, 110, 121, 0.2)" stroke-width="12" stroke-linecap="round" />
 
                 <!-- Foreground dashed line -->
@@ -128,10 +128,10 @@
 
                 <!-- Rocket Progress Indicator -->
                 <g id="timeline-rocket">
-                    <text id="rocket-icon" x="-15" y="10" font-size="30">🚀</text>
-                    <animateMotion
-                        path="M 100 220 C 230 220, 230 100, 366 100 C 500 100, 500 240, 633 240 C 766 240, 766 120, 900 120"
-                        dur="6s" repeatCount="indefinite" rotate="auto" />
+                    <text x="-15" y="10" font-size="30">🚀</text>
+                    <animateMotion dur="6s" repeatCount="indefinite" rotate="auto">
+                        <mpath href="#journey-path" />
+                    </animateMotion>
                 </g>
 
             </svg>
@@ -191,28 +191,23 @@
             <div class="gallery-grid" style="padding-top: 1rem;">
                 <div class="gallery-item"
                     onclick="openModal('{{ url_for('static', filename='images/surprise_1.jpeg') }}')">
-                    <img src="{{ url_for('static', filename='images/surprise_1.jpeg') }}"
-                        alt="Surprise Image">
+                    <img src="{{ url_for('static', filename='images/surprise_1.jpeg') }}" alt="Surprise Image">
                 </div>
                 <div class="gallery-item"
                     onclick="openModal('{{ url_for('static', filename='images/surprise_2.jpeg') }}')">
-                    <img src="{{ url_for('static', filename='images/surprise_2.jpeg') }}"
-                        alt="Surprise Image">
+                    <img src="{{ url_for('static', filename='images/surprise_2.jpeg') }}" alt="Surprise Image">
                 </div>
                 <div class="gallery-item"
                     onclick="openModal('{{ url_for('static', filename='images/surprise_3.jpeg') }}')">
-                    <img src="{{ url_for('static', filename='images/surprise_3.jpeg') }}"
-                        alt="Surprise Image">
+                    <img src="{{ url_for('static', filename='images/surprise_3.jpeg') }}" alt="Surprise Image">
                 </div>
                 <div class="gallery-item"
                     onclick="openModal('{{ url_for('static', filename='images/surprise_4.jpeg') }}')">
-                    <img src="{{ url_for('static', filename='images/surprise_4.jpeg') }}"
-                        alt="Surprise Image">
+                    <img src="{{ url_for('static', filename='images/surprise_4.jpeg') }}" alt="Surprise Image">
                 </div>
                 <div class="gallery-item"
                     onclick="openModal('{{ url_for('static', filename='images/surprise_5.jpeg') }}')">
-                    <img src="{{ url_for('static', filename='images/surprise_5.jpeg') }}"
-                        alt="Surprise Image">
+                    <img src="{{ url_for('static', filename='images/surprise_5.jpeg') }}" alt="Surprise Image">
                 </div>
             </div>
 

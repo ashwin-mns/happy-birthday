@@ -50,7 +50,7 @@
     <div class="music-control" onclick="toggleMusic()">
         <i id="music-icon" class="fas fa-music"></i>
         <audio id="bg-music" loop autoplay onplay="document.getElementById('music-icon').classList.replace('fa-music', 'fa-pause')" onpause="document.getElementById('music-icon').classList.replace('fa-pause', 'fa-music')">
-            <source src="{{ url_for('static', filename='music/WhatsApp Audio 2026-03-21 at 6.47.56 AM.mp4') }}" type="audio/mp4">
+            <source src="{{ url_for('static', filename='music/bg_music.mp4') }}" type="audio/mp4">
         </audio>
     </div>
 
