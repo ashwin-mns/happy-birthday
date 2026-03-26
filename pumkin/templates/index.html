@@ -1,0 +1,308 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section id="home" class="hero" data-bg-type="home">
+    <h1 data-aos="fade-down" data-aos-duration="1500"><span class="shine-text">Happy Birthday Maanasiii</span></h1>
+    <p data-aos="fade-up" data-aos-duration="1500" data-aos-delay="300"
+        style="color: var(--text-light); letter-spacing: 2px;">Every moment with you is a beautiful dream come true...
+    </p>
+    <div style="margin-top: 2rem;" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="600">
+        <i class="fas fa-heart"
+            style="color: var(--pink-primary); font-size: 3rem; animation: pulse 1.5s infinite;"></i>
+    </div>
+</section>
+
+<section id="moments" class="content-section" data-bg-type="home" data-aos="fade-right" data-aos-duration="1000">
+    <div class="container">
+        <h2 class="section-title staged-header">Beautiful Moments</h2>
+        <div class="gallery-grid">
+            {% for moment in moments %}
+            <div class="gallery-item reveal-child deep-glass" data-aos="fade-up" data-aos-offset="100" data-tilt
+                data-tilt-glare="true" data-tilt-max-glare="0.5" data-tilt-max="15" data-tilt-speed="400"
+                onclick="openModal('{{ url_for('static', filename='uploads/' + moment.filename if moment.type == 'upload' else 'images/' + moment.filename) }}')">
+                <div class="glass-shine-layer"></div>
+                <img src="{{ url_for('static', filename='uploads/' + moment.filename if moment.type == 'upload' else 'images/' + moment.filename) }}"
+                    alt="Moment">
+                {% if moment.caption %}
+                <div class="item-caption">{{ moment.caption }}</div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="videos" class="content-section" data-bg-type="home" data-aos="fade-left" data-aos-duration="1000">
+    <div class="container">
+        <h2 class="section-title staged-header">Our Special Videos</h2>
+        <div class="video-grid">
+            {% for video in videos %}
+            <div class="video-card reveal-child deep-glass" data-aos="fade-up" data-aos-offset="100" data-tilt
+                data-tilt-glare="true" data-tilt-max-glare="0.3" data-tilt-max="10" data-tilt-speed="400">
+                <div class="glass-shine-layer"></div>
+                <video controls>
+                    <source
+                        src="{{ url_for('static', filename='uploads/' + video.filename if video.type == 'upload' else 'videos/' + video.filename) }}">
+                    Your browser does not support the video tag.
+                </video>
+                {% if video.title %}
+                <div class="video-card-info">
+                    <h3>{{ video.title }}</h3>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="timeline-map" class="content-section" data-bg-type="home" style="padding-top: 5vh;" data-aos="fade-right"
+    data-aos-duration="1000">
+    <div class="container">
+        <h2 class="section-title staged-header">Our Journey Together</h2>
+
+        <!-- Animated Journey Map -->
+        <div class="journey-map">
+            <svg viewBox="0 0 1000 320" class="journey-map-svg">
+                <defs>
+                    <filter id="drop-shadow" x="-50%" y="-50%" width="200%" height="200%">
+                        <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#B76E79" flood-opacity="0.4" />
+                    </filter>
+                    <filter id="pin-shadow" x="-50%" y="-50%" width="200%" height="200%">
+                        <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#000" flood-opacity="0.2" />
+                    </filter>
+                </defs>
+
+                <!-- Decorative elements -->
+                <text x="200" y="80" font-size="20" opacity="0.6">💕</text>
+                <text x="500" y="60" font-size="24" opacity="0.8">✨</text>
+                <text x="800" y="280" font-size="18" opacity="0.7">💖</text>
+                <text x="350" y="280" font-size="22" opacity="0.5">✨</text>
+                <text x="750" y="70" font-size="24" opacity="0.6">💕</text>
+
+                <!-- Background line (glow) -->
+                <path d="M 100 220 C 230 220, 230 100, 366 100 C 500 100, 500 240, 633 240 C 766 240, 766 120, 900 120"
+                    fill="none" stroke="rgba(183, 110, 121, 0.2)" stroke-width="12" stroke-linecap="round" />
+
+                <!-- Foreground dashed line -->
+                <path d="M 100 220 C 230 220, 230 100, 366 100 C 500 100, 500 240, 633 240 C 766 240, 766 120, 900 120"
+                    fill="none" stroke="#B76E79" stroke-width="4" stroke-dasharray="8, 12" stroke-linecap="round" />
+
+                <!-- 2023 -->
+                <g class="map-point">
+                    <circle cx="100" cy="220" r="18" fill="white" filter="url(#drop-shadow)" />
+                    <circle cx="100" cy="220" r="12" fill="#B76E79" />
+                    <circle cx="100" cy="220" r="30" fill="#B76E79" opacity="0.3">
+                        <animate attributeName="r" values="20;35;20" dur="2s" repeatCount="indefinite" />
+                        <animate attributeName="opacity" values="0.4;0;0.4" dur="2s" repeatCount="indefinite" />
+                    </circle>
+                    <text x="100" y="270" text-anchor="middle" font-size="24" fill="#333" font-weight="bold">2023</text>
+                    <text x="100" y="295" text-anchor="middle" font-size="16" fill="#B76E79" font-weight="bold">We Met
+                        ❤️</text>
+                </g>
+
+                <!-- 2024 -->
+                <g class="map-point">
+                    <circle cx="366" cy="100" r="14" fill="white" filter="url(#drop-shadow)" />
+                    <circle cx="366" cy="100" r="8" fill="#8E525C" />
+                    <text x="366" y="65" text-anchor="middle" font-size="20" fill="#666" font-weight="bold">2024</text>
+                </g>
+
+                <!-- 2025 -->
+                <g class="map-point">
+                    <circle cx="633" cy="240" r="14" fill="white" filter="url(#drop-shadow)" />
+                    <circle cx="633" cy="240" r="8" fill="#8E525C" />
+                    <text x="633" y="285" text-anchor="middle" font-size="20" fill="#666" font-weight="bold">2025</text>
+                </g>
+
+                <!-- 2026 -->
+                <g class="map-point">
+                    <circle cx="900" cy="120" r="18" fill="white" filter="url(#drop-shadow)" />
+                    <circle cx="900" cy="120" r="12" fill="#B76E79" />
+                    <circle cx="900" cy="120" r="12" fill="#B76E79" />
+                    <text x="900" y="170" text-anchor="middle" font-size="24" fill="var(--text-charcoal)"
+                        font-weight="bold">2026</text>
+                    <text x="900" y="195" text-anchor="middle" font-size="16" fill="var(--pink-dark)"
+                        font-weight="bold">Almost 3 Years! ✨</text>
+                </g>
+
+                <!-- Rocket Progress Indicator -->
+                <g id="timeline-rocket">
+                    <text id="rocket-icon" x="-15" y="10" font-size="30">🚀</text>
+                    <animateMotion
+                        path="M 100 220 C 230 220, 230 100, 366 100 C 500 100, 500 240, 633 240 C 766 240, 766 120, 900 120"
+                        dur="6s" repeatCount="indefinite" rotate="auto" />
+                </g>
+
+            </svg>
+        </div>
+
+        <div class="timeline-container">
+            {% for memory in memories %}
+            <div class="timeline-item reveal-child" data-tilt data-tilt-glare="true" data-tilt-max-glare="0.2"
+                data-tilt-max="5" data-tilt-speed="400">
+                <div class="timeline-date">{{ memory.date }}</div>
+                <h3 class="timeline-title">{{ memory.title }}</h3>
+                <p>{{ memory.description }}</p>
+                {% if memory.image_filename %}
+                <img src="{{ url_for('static', filename='uploads/' + memory.image_filename) }}" class="timeline-img"
+                    alt="Memory">
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="letter" class="content-section" data-bg-type="letter" data-aos="fade-left" data-aos-duration="1000">
+    <div class="container">
+        <div class="letter-container deep-glass staged-item">
+            <div id="typewriter-text" class="typewriter"></div>
+        </div>
+    </div>
+</section>
+
+<section id="puzzle" class="content-section" data-bg-type="home">
+    <div class="container">
+        <h2 class="section-title staged-header">Picture Puzzle</h2>
+        <div style="text-align: center; margin-bottom: 2rem;" data-aos="fade-up" data-aos-delay="200">
+            <button class="btn-primary" onclick="scramblePuzzle()">Restart Game</button>
+        </div>
+        <style>
+            .puzzle-tile {
+                background-image: url("{{ url_for('static', filename='images/WhatsApp Image 2026-03-21 at 6.26.29 AM (2).jpeg') }}");
+            }
+        </style>
+        <div id="puzzle-grid" class="puzzle-grid"></div>
+        <p id="puzzle-message"
+            style="display:none; text-align:center; font-size:2rem; color:#FFB7CE; margin-top:2rem; animation: zoomIn 1s;">
+            You solved it! ❤️</p>
+    </div>
+</section>
+
+<section id="surprise" class="surprise-section reveal" data-bg-type="surprise">
+    <div class="surprise-container">
+        <button id="surprise-btn" class="btn-primary" onclick="triggerSurprise()">Click for Surprise ✨</button>
+
+        <div id="surprise-message" style="display: none; text-align: center; animation: zoomIn 1s ease;">
+            <h1 style="font-size: 4rem; color: var(--pink-dark);">To The Best Friend In The World! 🌙✨</h1>
+            <p style="font-size: 1.5rem; margin-top: 1rem;">You are my everything.</p>
+
+            <div class="gallery-grid" style="padding-top: 1rem;">
+                <div class="gallery-item"
+                    onclick="openModal('{{ url_for('static', filename='images/WhatsApp Image 2026-03-21 at 6.26.28 AM.jpeg') }}')">
+                    <img src="{{ url_for('static', filename='images/WhatsApp Image 2026-03-21 at 6.26.28 AM.jpeg') }}"
+                        alt="Surprise Image">
+                </div>
+                <div class="gallery-item"
+                    onclick="openModal('{{ url_for('static', filename='images/WhatsApp Image 2026-03-21 at 6.26.29 AM (1).jpeg') }}')">
+                    <img src="{{ url_for('static', filename='images/WhatsApp Image 2026-03-21 at 6.26.29 AM (1).jpeg') }}"
+                        alt="Surprise Image">
+                </div>
+                <div class="gallery-item"
+                    onclick="openModal('{{ url_for('static', filename='images/WhatsApp Image 2026-03-21 at 6.26.29 AM (2).jpeg') }}')">
+                    <img src="{{ url_for('static', filename='images/WhatsApp Image 2026-03-21 at 6.26.29 AM (2).jpeg') }}"
+                        alt="Surprise Image">
+                </div>
+                <div class="gallery-item"
+                    onclick="openModal('{{ url_for('static', filename='images/WhatsApp Image 2026-03-21 at 6.26.29 AM (3).jpeg') }}')">
+                    <img src="{{ url_for('static', filename='images/WhatsApp Image 2026-03-21 at 6.26.29 AM (3).jpeg') }}"
+                        alt="Surprise Image">
+                </div>
+                <div class="gallery-item"
+                    onclick="openModal('{{ url_for('static', filename='images/WhatsApp Image 2026-03-21 at 6.26.29 AM.jpeg') }}')">
+                    <img src="{{ url_for('static', filename='images/WhatsApp Image 2026-03-21 at 6.26.29 AM.jpeg') }}"
+                        alt="Surprise Image">
+                </div>
+            </div>
+
+            <div style="margin-top: 3rem;">
+                <i class="fas fa-heart" style="color: #FFD1DC; font-size: 5rem; animation: pulse 1.5s infinite;"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modal for Gallery -->
+<div id="myModal" class="modal" onclick="closeModal()">
+    <span
+        style="position: absolute; top: 15px; right: 35px; color: white; font-size: 40px; cursor: pointer;">&times;</span>
+    <img class="modal-content" id="img01">
+</div>
+
+<style>
+    /* Specific styles preserved for index.html */
+    .surprise-section {
+        padding: 5vh 0;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.2);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    @keyframes zoomIn {
+        from {
+            opacity: 0;
+            transform: scale(0.5);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const allImages = [
+        {% for i in range(1, 11) %}
+    "{{ url_for('static', filename='images/' + i|string + '.jpeg') }}",
+        {% endfor %}
+    ];
+
+    const homeImages = allImages.slice(0, 5);
+    const letterImages = allImages.slice(5, 10);
+    const surpriseImages = allImages;
+
+    const letter = `Dearest Maanasiii,
+
+Happy Birthday! 🎂
+
+Words often fall short when I try to express how much you mean to me as a friend. You are always there to brighten my darkest days. 
+
+Every moment we share becomes a treasured memory, and every day with you is a gift I don't take for granted. You are wonderful, kind, and the best friend I've ever known.
+
+May your day be as bright and beautiful as your smile. I cherish our friendship more than words can say.
+
+Your best friend,
+Pumkin`;
+
+    window.addEventListener('load', () => {
+        // Global background with all 10 images
+        setupBackgroundCollage(allImages);
+
+        // Letter typewriter trigger
+        const letterObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                typeWriter(letter, 'typewriter-text', 50);
+                letterObserver.disconnect();
+            }
+        }, { threshold: 0.5 });
+
+        const letterSection = document.getElementById('letter');
+        if (letterSection) letterObserver.observe(letterSection);
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}A Letter For You{% endblock %}
+
+{% block content %}
+<div class="letter-container">
+    <div id="typewriter-text" class="typewriter"></div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const letter = `Dearest Maanasiii,
+
+Happy Birthday! 🎂
+
+Words often fall short when I try to express how much you mean to me as a friend. You are always there to brighten my darkest days. 
+
+Every moment we share becomes a treasured memory, and every day with you is a gift I don't take for granted. You are wonderful, kind, and the best friend I've ever known.
+
+May your day be as bright and beautiful as your smile. I cherish our friendship more than words can say.
+
+Your PUMKINNNNNN ;
+
+    window.onload = () => {
+        typeWriter(letter, 'typewriter-text', 50);
+
+        const letterImages = [
+            "{{ url_for('static', filename='images/WhatsApp Image 2026-02-25 at 2.02.18 PM.jpeg') }}",
+            "{{ url_for('static', filename='images/WhatsApp Image 2026-02-25 at 2.22.19 PM (1).jpeg') }}",
+            "{{ url_for('static', filename='images/WhatsApp Image 2026-02-25 at 2.22.19 PM (2).jpeg') }}",
+            "{{ url_for('static', filename='images/WhatsApp Image 2026-02-25 at 2.22.19 PM (3).jpeg') }}",
+            "{{ url_for('static', filename='images/WhatsApp Image 2026-02-25 at 2.22.19 PM.jpeg') }}"
+        ];
+        setupBackgroundCollage(letterImages);
+    };
+</script>
+{% endblock %}

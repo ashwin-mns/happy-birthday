@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Our Videos{% endblock %}
+
+{% block content %}
+<div class="container" style="padding: 2rem;">
+    <h2 style="text-align: center; font-size: 3rem; color: #FFB7CE; margin-bottom: 2rem;">Our Special Videos</h2>
+
+    <div class="video-grid">
+        {% for video in videos %}
+        <div class="video-card">
+            <video controls>
+                <source src="{{ url_for('static', filename='uploads/' + video.filename) }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="video-card-info">
+                <h3>{{ video.title }}</h3>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
