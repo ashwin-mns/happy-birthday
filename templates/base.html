@@ -24,6 +24,7 @@
     <!-- Awesome Background Particles -->
     <div id="tsparticles" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none;"></div>
     <div id="bg-collage"></div>
+    <div class="parallax-layer" id="parallax-layer"></div>
     <div id="glass-overlay"></div>
 
     <nav class="navbar">
@@ -54,18 +55,17 @@
     </div>
 
     <!-- Entrance Overlay with Dramatic Curtain Animation -->
-    <div id="entrance-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden; background: #FDFBF7;">
+    <div id="entrance-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden;">
         <!-- Left Curtain pane -->
-        <div id="curtain-left" style="position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: #FDFBF7; z-index: 10001; transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1);"></div>
+        <div id="curtain-left" style="position: absolute; top: 0; left: 0; width: 50%; height: 100%; z-index: 10001; transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1);"></div>
         <!-- Right Curtain pane -->
-        <div id="curtain-right" style="position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: #FDFBF7; z-index: 10001; transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1);"></div>
+        <div id="curtain-right" style="position: absolute; top: 0; right: 0; width: 50%; height: 100%; z-index: 10001; transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1);"></div>
         
-        <div class="gate" id="quiz-container" style="position: relative; z-index: 10002; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #FDFBF7;">
+        <div class="gate" id="quiz-container" style="position: relative; z-index: 10002; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
             <!-- Intro Step -->
             <div id="quiz-step-0" class="quiz-step active">
-                <h1 style="font-family: 'Cinzel', serif; font-size: 3rem; color: var(--pink-dark); margin-bottom: 1rem; text-shadow: 0 4px 15px rgba(183, 110, 121, 0.2);">Welcome to Maanasiii's Surprise!</h1>
-                <p style="font-size: 1.2rem; color: var(--text-color); margin-bottom: 0.5rem;">Wait... before we let you in, we need to verify it's really you.</p>
-                <p style="font-size: 1.1rem; color: var(--text-color); margin-bottom: 2rem;">Pass this quick test to unlock the magic! ✨</p>
+                <h1 style="font-family: 'Cinzel', serif; font-size: 3rem; color: #fff; margin-bottom: 1rem; text-shadow: 0 4px 15px rgba(0,0,0,0.1);">Welcome to Maanasiii's Surprise!</h1>
+                <p style="color: rgba(255,255,255,0.9); font-size: 1.1rem; margin-bottom: 2rem;">Wait... before we let you in, we need to verify it's really you.<br>Pass this quick test to unlock the magic! ✨</p>
                 <button class="btn-primary" onclick="nextQuizStep(1)">Start Verification</button>
             </div>
 
@@ -179,8 +179,6 @@
         }
     </script>
 
-    <!-- Vanilla Tilt for 3D Photo Hover Effects -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     {% block scripts %}{% endblock %}

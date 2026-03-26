@@ -129,73 +129,7 @@ function launchFireworks() {
     }, 250);
 }
 
-function initPuzzle() {
-    const puzzleGrid = document.getElementById('puzzle-grid');
-    puzzleGrid.innerHTML = '';
-    for (let i = 0; i < 16; i++) {
-        const tile = document.createElement('div');
-        tile.classList.add('puzzle-tile');
-        tile.dataset.index = i;
-        if (i === 15) {
-            tile.classList.add('empty');
-        } else {
-            const x = (i % 4) * (100 / 3);
-            const y = Math.floor(i / 4) * (100 / 3);
-            tile.style.backgroundPosition = `${x}% ${y}%`;
-        }
 
-        tile.addEventListener('click', function () {
-            if (!isScrambled) return;
-            const currentIdx = Array.from(puzzleGrid.children).indexOf(this);
-            const emptyIdx = Array.from(puzzleGrid.children).findIndex(el => el.classList.contains('empty'));
-
-            const rowDiff = Math.abs(Math.floor(currentIdx / 4) - Math.floor(emptyIdx / 4));
-            const colDiff = Math.abs((currentIdx % 4) - (emptyIdx % 4));
-
-            if ((rowDiff === 1 && colDiff === 0) || (rowDiff === 0 && colDiff === 1)) {
-                swapTiles(currentIdx, emptyIdx);
-                checkWin();
-            }
-        });
-        puzzleGrid.appendChild(tile);
-    }
-}
-
-function swapTiles(idx1, idx2) {
-    const puzzleGrid = document.getElementById('puzzle-grid');
-    const childArr = Array.from(puzzleGrid.children);
-    const temp = document.createElement('div');
-    puzzleGrid.insertBefore(temp, childArr[idx1]);
-    puzzleGrid.replaceChild(childArr[idx1], childArr[idx2]);
-    puzzleGrid.replaceChild(childArr[idx2], temp);
-}
-
-function scramblePuzzle() {
-    document.getElementById('puzzle-message').style.display = 'none';
-    const puzzleGrid = document.getElementById('puzzle-grid');
-
-    // Ensure the puzzle is in its fully assembled state first before scrambling
-    initPuzzle();
-
-    // Make random valid moves 150 times to properly shuffle
-    for (let i = 0; i < 150; i++) {
-        const emptyIdx = Array.from(puzzleGrid.children).findIndex(el => el.classList.contains('empty'));
-        const neighbors = [];
-        if (emptyIdx % 4 !== 0) neighbors.push(emptyIdx - 1);
-        if (emptyIdx % 4 !== 3) neighbors.push(emptyIdx + 1);
-        if (emptyIdx >= 4) neighbors.push(emptyIdx - 4);
-        if (emptyIdx < 12) neighbors.push(emptyIdx + 4);
-
-        const randomNeighbor = neighbors[Math.floor(Math.random() * neighbors.length)];
-        swapTiles(randomNeighbor, emptyIdx);
-    }
-    isScrambled = true;
-}
-
-function checkWin() {
-    if (!isScrambled) return;
-    let win = true;
-}
 
 function initPuzzle() {
     const puzzleGrid = document.getElementById('puzzle-grid');
@@ -484,21 +418,89 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // 2. Magnetic Buttons
-        const magButtons = document.querySelectorAll('.btn-primary, .btn-outline');
-        magButtons.forEach(btn => {
+        // 2. Magnetic Buttons with improved smoothing
+        const magneticButtons = document.querySelectorAll('.btn-primary, .btn-outline, .option-btn, .music-control');
+        magneticButtons.forEach(btn => {
             btn.addEventListener('mousemove', function (e) {
                 const rect = this.getBoundingClientRect();
                 const x = e.clientX - rect.left - rect.width / 2;
                 const y = e.clientY - rect.top - rect.height / 2;
-                // Pull button slightly towards the cursor
-                this.style.transform = `translate(${x * 0.25}px, ${y * 0.25}px) scale(1.05)`;
+                
+                // Gentler pull with better interpolation
+                this.style.transform = `translate(${x * 0.35}px, ${y * 0.35}px) scale(1.02)`;
             });
 
             btn.addEventListener('mouseleave', function () {
-                // Snap back to normal
-                this.style.transform = `translate(0px, 0px) scale(1)`;
+                this.style.transform = 'translate(0px, 0px) scale(1)';
             });
+        });
+
+        // 3. Floating Parallax Elements Spawning
+        const parallaxLayer = document.getElementById('parallax-layer');
+        if (parallaxLayer) {
+            const icons = ['fa-heart', 'fa-sparkles', 'fa-star', 'fa-moon'];
+            for (let i = 0; i < 20; i++) {
+                const item = document.createElement('i');
+                const icon = icons[Math.floor(Math.random() * icons.length)];
+                item.className = `fas ${icon} float-item float-sparkle`;
+                item.style.left = Math.random() * 100 + 'vw';
+                item.style.top = Math.random() * 100 + 'vh';
+                item.style.animationDelay = Math.random() * 5 + 's';
+                // Assign a "depth" for parallax
+                item.dataset.depth = Math.random() * 0.5 + 0.1;
+                parallaxLayer.appendChild(item);
+            }
+
+            document.addEventListener('mousemove', (e) => {
+                const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+                const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+                
+                const items = parallaxLayer.querySelectorAll('.float-item');
+                items.forEach(item => {
+                    const depth = parseFloat(item.dataset.depth);
+                    item.style.transform = `translate(${moveX * depth * 50}px, ${moveY * depth * 50}px)`;
+                });
+            });
+            
+            window.addEventListener('scroll', () => {
+                const scrolled = window.scrollY;
+                const items = parallaxLayer.querySelectorAll('.float-item');
+                items.forEach(item => {
+                    const depth = parseFloat(item.dataset.depth);
+                    item.style.transform = `translateY(${-scrolled * depth * 0.2}px)`;
+                });
+            });
+        }
+
+        // 4. Scroll-triggered Reveal Animations (Cinematic Staged)
+        const revealElements = document.querySelectorAll('.reveal, .hero, .content-section, .surprise-section');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    // Choreographed Staging
+                    const header = entry.target.querySelector('.section-title, .hero h1');
+                    const items = entry.target.querySelectorAll('.gallery-item, .video-card, .timeline-item, .reveal-child, .staged-item');
+                    
+                    if (header) {
+                        header.style.transitionDelay = '0.1s';
+                    }
+                    
+                    items.forEach((item, index) => {
+                        // Incremental delays for a ripple/staged effect
+                        item.style.transitionDelay = `${0.3 + (index * 0.1)}s`;
+                    });
+                }
+            });
+        }, { 
+            threshold: 0.2, // Trigger when 20% visible for smoother anticipation
+            rootMargin: "0px 0px -5% 0px"
+        });
+
+        revealElements.forEach(el => {
+            if (!el.classList.contains('reveal')) el.classList.add('reveal');
+            revealObserver.observe(el);
         });
     }
 });
