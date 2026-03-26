@@ -1,12 +1,12 @@
 function toggleMusic() {
+    const music = document.getElementById('bg-music');
+    const icon = document.getElementById('music-icon');
+    if (!music || !icon) return;
+
     if (music.paused) {
-        music.play();
-        icon.classList.remove('fa-music');
-        icon.classList.add('fa-pause');
+        music.play().catch(e => console.log('Audio play error:', e));
     } else {
         music.pause();
-        icon.classList.remove('fa-pause');
-        icon.classList.add('fa-music');
     }
 }
 
@@ -105,6 +105,32 @@ document.addEventListener('DOMContentLoaded', () => {
     if (puzzleGrid) {
         scramblePuzzle();
     }
+
+    // Video Audio Interception
+    const bgMusic = document.getElementById('bg-music');
+    const videos = document.querySelectorAll('video');
+    videos.forEach(video => {
+        video.addEventListener('play', () => {
+            if (bgMusic && !bgMusic.paused) {
+                bgMusic.pause();
+                bgMusic.dataset.wasPlaying = "true";
+            }
+        });
+        
+        video.addEventListener('pause', () => {
+            if (bgMusic && bgMusic.dataset.wasPlaying === "true") {
+                bgMusic.play().catch(() => {});
+                bgMusic.dataset.wasPlaying = "false";
+            }
+        });
+        
+        video.addEventListener('ended', () => {
+            if (bgMusic && bgMusic.dataset.wasPlaying === "true") {
+                bgMusic.play().catch(() => {});
+                bgMusic.dataset.wasPlaying = "false";
+            }
+        });
+    });
 });
 
 function launchFireworks() {
