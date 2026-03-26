@@ -8,8 +8,13 @@ from datetime import datetime
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'romantic-secret-key-123'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///birthday_surprise.db'
-app.config['UPLOAD_FOLDER'] = 'static/uploads'
+if os.environ.get('VERCEL') == '1':
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/birthday_surprise.db'
+    app.config['UPLOAD_FOLDER'] = '/tmp/uploads'
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///birthday_surprise.db'
+    app.config['UPLOAD_FOLDER'] = 'static/uploads'
+
 app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024  # 100MB max upload
 
 db = SQLAlchemy(app)
