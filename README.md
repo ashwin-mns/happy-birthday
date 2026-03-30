@@ -60,3 +60,13 @@ By default, the database initializes with the following admin user to populate c
 
 Navigating to `/admin/login` will prompt you to enter these credentials, from which you can upload or delete personalized entries spanning the surprise timeline.
 
+<img width="1904" height="866" alt="Screenshot 2026-03-27 082219" src="https://github.com/user-attachments/assets/8d35693a-53fb-47bd-9ee7-b8b7284ac056" />
+
+<img width="1906" height="868" alt="Screenshot 2026-03-27 082237" src="https://github.com/user-attachments/assets/e7824444-9a1a-4c50-ac4b-3378e184fabc" />
+
+<img width="1919" height="862" alt="Screenshot 2026-03-27 082325" src="https://github.com/user-attachments/assets/04b83fdd-16d8-4c46-9588-cab22a4d2c29" />
+
+<img width="1919" height="875" alt="Screenshot 2026-03-27 082351" src="https://github.com/user-attachments/assets/1bf5583e-9a4d-4875-a622-f297fd9e1907" />
+
+<img width="1919" height="863" alt="Screenshot 2026-03-27 082411" src="https://github.com/user-attachments/assets/8253ee89-3379-44b9-9d55-244817719a64" />
+
